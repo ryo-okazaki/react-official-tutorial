@@ -1,0 +1,27 @@
+Reactはユーザーインターフェイスを構築するための、宣言型のJavaScriptライブラリ
+複雑なUIをコンポーネントと呼ばれる小さく独立した部品から組み立てる
+
+class ShoppingList extends React.Component {
+  render() {
+    return (
+      <div className="shopping-list">
+        <h1>Shopping List for {this.props.name}</h1>
+        <ul>
+          <li>Instagram</li>
+          <li>WhatsApp</li>
+          <li>Oculus</li>
+        </ul>
+      </div>
+    );
+  }
+}
+
+// Example usage: <ShoppingList name="Mark" />
+
+
+ShoppingListはReactコンポーネントクラス、もしくはReactコンポーネント型
+コンポーネントはpropsと呼ばれるパラメータを受け取り、renderメソッドを通じて、表示するビューの階層構造を返す
+
+renderメソッドが返すのはあなたが画面上に表示したいものの説明書き。
+Reactはその説明書きを受け取って画面に描写する
+renderは描写すべきものの軽量なReact要素を返す → JSX
