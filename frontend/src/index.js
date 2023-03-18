@@ -4,10 +4,27 @@ import './index.css';
 
 // 正方形のマス目
 class Square extends React.Component {
+    // stateを初期化
+    constructor(props) {
+        super(props);
+        // jsのクラスでは、サブクラスのコンストラクタを定義する際は常にsuperを呼ぶ必要がある
+        // constructorを持つReactのクラスコンポーネントでは、全てコンストラクタをsuper(props)の呼び出しから始めるべき
+        this.state = {
+            value: null,
+        }
+    }
+
     render() {
         return (
-            <button className="square">
-                {this.props.value}
+            <button
+                className="square"
+                onClick={() => this.setState({value: 'X'})}
+                // Squareのrenderメソッド内に書かれたonClickハンドラ内でthis.setStateを呼び出すことで、
+                // Reactに<button>がクリックされたら常に再レンダーするよう伝えることができる
+
+                // setStateをコンポーネント内で呼び出すと、Reactはその内部の子コンポーネントも自動的に更新する
+            >
+                {this.state.value}
             </button>
         );
     }
@@ -17,7 +34,7 @@ class Square extends React.Component {
 class Board extends React.Component {
     renderSquare(i) {
         return <Square value={i} />;
-        // propsとしてvalue血王名前の値をSquareに渡すコードを変更
+        // propsとしてvalueという名前の値をSquareに渡すコードを変更
         // 親であるBoardコンポーネントから子であるSquareコンポーネントにpropsを渡す
         // Reactでは、親から子へとpropsを渡すことで、アプリ内に情報が流れる
     }
