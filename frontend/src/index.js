@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 // 正方形のマス目
+/*
 class Square extends React.Component {
     // stateを初期化
     constructor(props) {
@@ -31,6 +32,15 @@ class Square extends React.Component {
             </button>
         );
     }
+}
+ */
+
+function Square(props) {
+    return (
+        <button className="square" onClick={props.onClick}>
+            {props.value}
+        </button>
+    )
 }
 
 // 盤面
