@@ -2,19 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+// 正方形のマス目
 class Square extends React.Component {
     render() {
         return (
             <button className="square">
-                {/* TODO */}
+                {this.props.value}
             </button>
         );
     }
 }
 
+// 盤面
 class Board extends React.Component {
     renderSquare(i) {
-        return <Square />;
+        return <Square value={i} />;
+        // propsとしてvalue血王名前の値をSquareに渡すコードを変更
+        // 親であるBoardコンポーネントから子であるSquareコンポーネントにpropsを渡す
+        // Reactでは、親から子へとpropsを渡すことで、アプリ内に情報が流れる
     }
 
     render() {
