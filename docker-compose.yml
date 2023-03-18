@@ -7,5 +7,7 @@ services:
       dockerfile: ./docker/frontend/Dockerfile
     ports:
       - "8080:3000"
+    environment:
+      - WDS_SOCKET_PORT=0
     volumes:
       - ./frontend:/app
