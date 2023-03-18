@@ -18,13 +18,16 @@ class Square extends React.Component {
         return (
             <button
                 className="square"
-                onClick={() => this.setState({value: 'X'})}
+                onClick={() => this.props.onClick()}
+                // onClickプロパティはマス目がクリックされた時にSquareが呼び出すためのもの
+                // Squareがクリックされると、Boardから渡されたonClick関数がコールされる
+
                 // Squareのrenderメソッド内に書かれたonClickハンドラ内でthis.setStateを呼び出すことで、
                 // Reactに<button>がクリックされたら常に再レンダーするよう伝えることができる
 
                 // setStateをコンポーネント内で呼び出すと、Reactはその内部の子コンポーネントも自動的に更新する
             >
-                {this.state.value}
+                {this.props.value}
             </button>
         );
     }
@@ -32,8 +35,32 @@ class Square extends React.Component {
 
 // 盤面
 class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+        // Boardのstateが変更されると、個々のSquareコンポーネントも自動的に再レンダーされる
+    }
+
     renderSquare(i) {
-        return <Square value={i} />;
+        return (
+            <Square
+                value={this.state.squares[i]}
+                onClick={() => this.handleClick(i)}
+                // 現在、どのマス目に何が入っているかを管理しているのはBoard
+                // SquareがBoardのstateを更新できるようにする必要がある
+                // stateはコンポーネント内でプライベートなものなので、SquareからBoardのstateを直接書き換えることはできない
+
+                // 代わりに、BoardからSquareに関数を渡すことにして、マス目がクリックされた時にSquareにその関数を呼んでもらうようにする
+            />
+        );
         // propsとしてvalueという名前の値をSquareに渡すコードを変更
         // 親であるBoardコンポーネントから子であるSquareコンポーネントにpropsを渡す
         // Reactでは、親から子へとpropsを渡すことで、アプリ内に情報が流れる
